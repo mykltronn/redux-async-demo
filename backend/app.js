@@ -3,7 +3,7 @@ const express = require('express'),
 
 const app = express();
 
-const meetupApiKey = '3f105e317968a206b2c3156c343e71';
+const meetupApiKey = process.env['MEETUP_API_KEY'];
 
 app.get('/api/meetups/:lat/:lon', function (req, res) {
   request.get(`https://api.meetup.com/find/events?lat=${req.params.lat}&lon=${req.params.lon}&key=${meetupApiKey}&sign=true`).end((error, response) => {

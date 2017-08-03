@@ -8,7 +8,7 @@ class MeetupList extends Component {
         if (this.props.loading > 0) {
             meetups = (<span className="loader loader-big"></span>);
         } else {
-            meetups = this.props.meetups.map(meetup => <Meetup meetup={meetup}/>);
+            meetups = this.props.meetups.map(meetup => <Meetup key={meetup.id} meetup={meetup}/>);
         }
 
         return (
