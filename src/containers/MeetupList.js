@@ -4,16 +4,23 @@ import Meetup from '../components/Meetup';
 
 class MeetupList extends Component {
     render() {
+        let meetups;
+        if (this.props.loading > 0) {
+            meetups = (<span className="loader loader-big"></span>);
+        } else {
+            meetups = this.props.meetups.map(meetup => <Meetup meetup={meetup}/>);
+        }
+
         return (
             <div className="MeetupList">
-                {this.props.meetups.map(meetup => <Meetup meetup={meetup}/>)}
+                {meetups}
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return {meetups: state.meetups}
+    return {meetups: state.meetups, loading: state.loading}
 }
 
 export default connect(mapStateToProps)(MeetupList);

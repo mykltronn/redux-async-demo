@@ -1,16 +1,23 @@
 import update from 'immutability-helper';
-import {SET_LAT_LON, CLEAR_MEETUPS, SET_MEETUPS} from "./actions";
+import {SET_LAT_LON, CLEAR_MEETUPS, SET_MEETUPS, SET_LOADING} from "./actions";
 
 const initialState = {
     loc: {
         lat: null,
         lon: null
     },
-    meetups: []
+    meetups: [],
+    loading: 0
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_LOADING:
+            return update(state, {
+                loading: {
+                    $apply: count => count + action.payload
+                }
+            })
         case SET_LAT_LON:
             return update(state, {
                 loc: {

@@ -29,13 +29,13 @@ export const changeLocation = (locString) => {
 
 const geocodeAddress = (address) => {
     return (dispatch, getState) => {
-        dispatch(setLoading(true));
+        dispatch(setLoading(1));
         request.get(`http://maps.googleapis.com/maps/api/geocode/json?address=${encode(address)}`).end((error, response) => {
             if (error) {
                 // TODO handle error in some way
             }
 
-            dispatch(setLoading(false));
+            dispatch(setLoading(-1));
             const loc = response.body.results[0].geometry.location;
             dispatch(setLatLon({lat: loc.lat, lon: loc.lng}));
             dispatch(getMeetups(loc.lat, loc.lng));
@@ -45,14 +45,14 @@ const geocodeAddress = (address) => {
 
 const getMeetups = (lat, lon) => {
     return (dispatch, getState) => {
-        dispatch(setLoading(true));
+        dispatch(setLoading(1));
         dispatch({type: CLEAR_MEETUPS});
         request.get(`/api/meetups/${lat}/${lon}`).end((error, response) => {
             if (error) {
                 // TODO handle error in some way
             }
 
-            dispatch(setLoading(false));
+            dispatch(setLoading(-1));
             dispatch(setMeetups(response.body));
         });
     }
